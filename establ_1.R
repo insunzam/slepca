@@ -1,6 +1,7 @@
 library(dplyr)
 library(tidyverse)
 library(dslabs)
+library(gridExtra)
 
 establecimientos <- readRDS("~/Documents/R/proyectos/slepca/data/establecimientos.rda")
 establecimientos<- establecimientos %>% mutate(perc_fem = F/MATRICULA)
@@ -8,10 +9,17 @@ establecimientos<- establecimientos %>% mutate(perc_mas = M/MATRICULA)
 establecimientos<- establecimientos %>% mutate(perc_map = MAPUCHE/MATRICULA)
 
 p <- establecimientos %>% ggplot(aes(COMUNA, MATRICULA))
-p + geom_point(size = 2, color = "blue") +
+p + geom_jitter(size = 2, color = "blue") +
   xlab("Comuna") +
   ylab("Nº de alumas/os") +
   ggtitle("Matricula")
+
+p <- establecimientos %>% ggplot(aes(MATRICULA, COMUNA))
+p + geom_jitter(size = 2) +
+  xlab("Nº de alumas/os") +
+  ylab("Comuna") +
+  ggtitle("Matricula por Comuna") + 
+  geom_point(aes(col = AREA), size = 2)
 
 p <- establecimientos %>% ggplot(aes(COMUNA, MATRICULA))
 p + geom_point(size = 2, color = "blue") +
@@ -74,6 +82,5 @@ establecimientos %>% ggplot(aes(perc_map, fill = AREA)) +
   xlab("Porcentaje Mapuche") + 
   ggtitle("Porcentaje de Estudiantes Mapuche - Urbano/Rural")
 
-library(gridExtra)
 grid.arrange(p, p1, ncol = 2)
 

@@ -4,11 +4,17 @@ library(dslabs)
 library(gridExtra)
 library(reshape2)
 
+setwd("/home/insunzamnt/R/projects/slepca/slepca")
+codigos <- c(9118,9117,9116,9102,9111)
+codigo2 <- c(14,15,16,17,18)
+
 #Carga de datos
-simce4to2019 <- readRDS("~/Documents/R/proyectos/slepca/data/simce4to2019.rda")
-simce4to2018 <- readRDS("~/Documents/R/proyectos/slepca/data/simce4tob2018.rda")
-simce4to2018$rbd <- as.character(simce4to2018$rbd)
-simce4to2019$RBD <- as.character(simce4to2019$RBD)
+simce4to2019 <- readRDS("data/simce4to2019.rda")
+simce4to2018 <- readRDS("data/simce4tob2018.rda")
+simce4to2017 <- readRDS("data/simce4to2017.Rdata") %>% 
+  filter(cod_reg_rbd == 9 & cod_depe1 == 2 & cod_com_rbd %in% codigo2)
+simce4to2016 <- readRDS("data/simce4to2016.Rdata") %>% 
+  filter(cod_reg_rbd == 9 & cod_depe1 == 2 & cod_com_rbd %in% codigos)
 
 pp <- simce4to2018 %>% ggplot(aes(prom_lect4b_rbd)) + 
   geom_density(alpha = 0.3) +
@@ -45,9 +51,11 @@ names(s4b2018LC)[4] <- "Insuficiente"
 
 DF1C <- melt(s4b2018LC, id.var='Comuna')
 #DF1 <- DF1[order(DF1$rbd,DF1$variable),]
-DF1C %>% filter(value>0) %>% ggplot(aes(x = Comuna, y = value, fill = variable)) + 
+DF1C %>% filter(!is.na(value)) %>% ggplot(aes(x = Comuna, y = value, fill = variable, label = value)) + 
   geom_bar(stat = "identity", position = "fill") +
-  scale_fill_brewer(palette="Dark2") + #scale_fill_manual(values=c(" #2E86C1", " #5DADE2", " #AED6F1")) +
+  scale_fill_brewer(palette="Dark2") + 
+  #scale_fill_manual(values=c(" #2E86C1", " #5DADE2", " #AED6F1")) +
+  xlab("Comunas") + ylab("Porcentajes") +
   ggtitle("Distribución Estandares de Aprendizaje Lenguaje SIMCE 4toB 2018")
 
 s4b2019LC <- simce4to2019[c(2,12:14)]
@@ -95,7 +103,19 @@ names(s4b2018L)[3] <- "Elemental"
 names(s4b2018L)[4] <- "Insuficiente"
 DF1 <- melt(s4b2018L, id.var='RBD')
 #DF1 <- DF1[order(DF1$rbd,DF1$variable),]
-DF1 %>% filter(value>0) %>% ggplot(aes(x = RBD, y = value, fill = variable, label=value)) + 
+DF1 %>% filter(!is.na(value)) %>% ggplot(aes(x = RBD, y = value, fill = variable)) + 
+  geom_bar(stat = "identity", position = "fill") + 
+  scale_fill_brewer(palette="Paired") +
+  ggtitle("Distribución Estandares de Aprendizaje Lenguaje SIMCE 4toB 2018")
+
+s4b2018L2 <- simce4to2018[c(3,11,36,35,34)]
+names(s4b2018L2)[1] <- "RBD"
+names(s4b2018L2)[2] <- "Comuna"
+names(s4b2018L2)[3] <- "Adecuado"
+names(s4b2018L2)[4] <- "Elemental"
+names(s4b2018L2)[5] <- "Insuficiente"
+
+DF1_2 %>% filter(Comuna %in% Tolté & !is.na(value)) %>% ggplot(aes(x = RBD, y = value, fill = variable)) + 
   geom_bar(stat = "identity", position = "fill") + 
   scale_fill_brewer(palette="Paired") +
   ggtitle("Distribución Estandares de Aprendizaje Lenguaje SIMCE 4toB 2018")
@@ -135,3 +155,4 @@ DF4 %>% filter(value > 0) %>% ggplot(aes(x = RBD, y = value, fill = variable)) +
   geom_bar(stat = "identity", position = "fill") + 
   scale_fill_brewer(palette="Paired") +
   ggtitle("Distribución Estandares de Aprendizaje Matemáticas SIMCE 4toB 2019")
+

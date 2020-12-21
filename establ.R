@@ -1,6 +1,7 @@
 library(dplyr)
 library(tidyverse)
 library(dslabs)
+library(gridExtra)
 
 #saveRDS(establecimientos, file = "~/Documents/R/proyectos/slepca/data/establecimientos.rda")
 #load("~/Documents/R/proyectos/slepca/data/establecimientos.rda")
@@ -28,7 +29,7 @@ p1 <- establecimientos %>% ggplot(aes(perc_mas, fill = AREA)) +
 p2 <- establecimientos %>% ggplot(aes(perc_map, fill = AREA)) + 
   geom_density(alpha = 0.2) 
 
-library(gridExtra)
+
 grid.arrange(p, p1, ncol = 2)
 
 summarize(establecimientos,perc_fem) %>% filter(!is.nan(F))

@@ -4,7 +4,7 @@ library(dslabs)
 library(gridExtra)
 
 establecimientos <- readRDS("~/Documents/R/proyectos/slepca/data/establecimientos.rda")
-establecimientos<- establecimientos %>% mutate(perc_fem = F/MATRICULA)
+establecimientos<- estab %>% mutate(perc_fem = F/MATRICULA)
 establecimientos<- establecimientos %>% mutate(perc_mas = M/MATRICULA)
 establecimientos<- establecimientos %>% mutate(perc_map = MAPUCHE/MATRICULA)
 

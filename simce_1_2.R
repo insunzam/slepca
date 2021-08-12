@@ -3,7 +3,7 @@ library(tidyverse)
 library(dslabs)
 library(gridExtra)
 library(reshape2)
-library(plyr)
+#library(plyr)
 
 setwd("/home/insunzamnt/R/projects/slepca/slepca")
 codigos <- c(9118,9117,9116,9102,9111)

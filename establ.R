@@ -5,7 +5,7 @@ library(gridExtra)
 
 #saveRDS(establecimientos, file = "~/Documents/R/proyectos/slepca/data/establecimientos.rda")
 #load("~/Documents/R/proyectos/slepca/data/establecimientos.rda")
-establecimientos <- readRDS("~/Documents/R/proyectos/slepca/data/establecimientos.rda")
+establecimientos <- readRDS("~/R/projects/slepca/slepca/data/establecimientos.rda")
 #data(establecimientos)
 estab <- establecimientos[order(establecimientos$RBD),]
 
@@ -87,6 +87,5 @@ p1 + geom_histogram(binwidth = 25, fill = "blue", col = "black") +
   ylab("Nº de establecimientos") +
   ggtitle("Alumnos")
 
-library(gridExtra)
 grid.arrange(p, p1, ncol = 2)
   

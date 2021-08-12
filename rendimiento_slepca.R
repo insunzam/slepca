@@ -1,5 +1,5 @@
 library(tidyverse)
-rend_2017_2019_data <- read_csv2("rend_2017_2019_data.csv")
+rend_2017_2019_data <- read_csv2("~/R/projects/slepca/slepca/fuentes/rend_2017_2019_data.csv")
 data(rend_2017_2019_data)
 
 ggplot(data = rend_2017_2019_data)

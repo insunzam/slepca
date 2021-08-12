@@ -25,3 +25,31 @@ simce4to2018$nom_com_rbd <- replace(simce4to2018$nom_com_rbd, simce4to2018$nom_c
 simce4to2018$nom_com_rbd <- replace(simce4to2018$nom_com_rbd, simce4to2018$nom_com_rbd == "Saave", "SAAVEDRA")
 simce4to2018$nom_com_rbd <- replace(simce4to2018$nom_com_rbd, simce4to2018$nom_com_rbd == "Teodo", "TEODORO SCHMIDT")
 simce4to2018$nom_com_rbd <- replace(simce4to2018$nom_com_rbd, simce4to2018$nom_com_rbd == "Tolté", "TOLTËN")
+
+#idps
+rbds <- c(6348,6349,6350,6351,6352,6353,6354,6358,6361,6363,6370,6371,6373,6374,6377,
+          6397,6398,6399,6400,6407,6410,6411,6413,6415,6452,6454,6455,6456,6457,6458,
+          6459,6495,6497,6499,6500,6501,6502,6504,6506,6508,6510,6512,6515,6518,6521,
+          6522,6523,6524,6525,6526,6527,6528,6529,6530,6539,6585,6587,6588,6589,6590,
+          6591,6593,6600,6602,6605,6608,6611,6623,6625,6628,6633,6635,6639,12366,
+          20053,20248)
+codigos <- c(9118,9117,9116,9102,9111)
+idps4b2016_rbd_f <- idps4b2016_rbd %>%
+  filter(rbd %in% rbds)
+#saveRDS(idps4b2016_rbd_f, file = "~/R/projects/slepca/slepca/data/idps4to2016.Rdata", compress = FALSE)
+#saveRDS(idps4b2016_rbd, file = "~/R/projects/slepca/slepca/data/idps4to2016.Rdata", compress = FALSE)
+#saveRDS(idps4b_2019, file = "~/R/projects/slepca/slepca/data/idps4to2019.Rdata", compress = FALSE)
+idps4b2017_rbd_f <- idps4b2017_rbd_final %>%
+  filter(cod_reg_rbd == 9 & cod_depe2 ==1 &
+           cod_com_rbd %in% codigos)
+#saveRDS(idps4b2017_rbd_f, file = "~/R/projects/slepca/slepca/data/idps4to2017.Rdata", compress = FALSE)
+idps4b2018_rbd_f <- idps_4b2018 %>%
+  filter(cod_reg_rbd == 9 & rbd %in% rbds)
+#saveRDS(idps4b2018_rbd_f, file = "~/R/projects/slepca/slepca/data/idps4to2018.Rdata", compress = FALSE)
+
+#idps4b2019_rbd_f <- idps19_rbd %>%
+#  filter(cod_reg_rbd == 9 & rbd %in% rbds)
+#saveRDS(idps4b2019_rbd, file = "~/R/projects/slepca/slepca/data/simce4to2019.rda", compress = FALSE)
+
+#idps19_rbd_f <- idps19_rbd %>% filter(rbd %in% rbds)
+

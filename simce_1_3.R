@@ -92,23 +92,20 @@ df$agno <- as.numeric(df$agno)
 b <- ggplot(df, aes(agno, value)) +
   geom_line(aes(color = variable, linetype = variable)) +
   scale_color_manual(values = c("darkred", "steelblue")) +
+  expand_limits(y=150) +
   geom_label(aes(label = value)) +
   xlab("Año") + ylab("Resultados") +
   ggtitle("Resultados 4to Básico Lenguaje y Matemáticas 2016 - 2019")
 b
 
-
-
-
-
 # No aun
-df <- res_com %>%
-  select(nom_com_rbd, pl, pm) %>%
-  gather(key= "variable", value = "value", -nom_com_rbd)
+#df <- res_com %>%
+#  select(nom_com_rbd, pl, pm) %>%
+#  gather(key= "variable", value = "value", -nom_com_rbd)
 
-b <- ggplot(df, aes(nom_com_rbd, value)) +
-  geom_line(aes(color = variable, linetype = variable)) +
-  scale_color_manual(values = c("darkred", "steelblue")) +
-  xlab("Año") + ylab("Resultados") +
-  ggtitle("Resultados 4to Básico Lenguaje y Matemáticas 2016 - 2019")
-b
+#b <- ggplot(df, aes(nom_com_rbd, value)) +
+#  geom_line(aes(color = variable, linetype = variable)) +
+#  scale_color_manual(values = c("darkred", "steelblue")) +
+#  xlab("Año") + ylab("Resultados") +
+#  ggtitle("Resultados 4to Básico Lenguaje y Matemáticas 2016 - 2019")
+#b

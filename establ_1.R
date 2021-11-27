@@ -3,7 +3,11 @@ library(tidyverse)
 library(dslabs)
 library(gridExtra)
 
-establecimientos <- readRDS("~/Documents/R/proyectos/slepca/data/establecimientos.rda")
+as_slepca_abril_2019 <- readRDS("~/R/projects/slepca/data/asistencia4_19.Rdata")
+
+as_slepca_abril_2019 <- as_slepca_abril_2019 %>% filter(V6 == "9" && V14 == "6")
+
+establecimientos <- readRDS("~/R/projects/slepca/data/establecimientos.rda")
 establecimientos<- estab %>% mutate(perc_fem = F/MATRICULA)
 establecimientos<- establecimientos %>% mutate(perc_mas = M/MATRICULA)
 establecimientos<- establecimientos %>% mutate(perc_map = MAPUCHE/MATRICULA)

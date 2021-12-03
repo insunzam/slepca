@@ -1,13 +1,14 @@
 
 #saveRDS(resultados_agencia_8esc, file = "~/R/projects/slepca/slepca/data/8estab_2.Rdata")
-#saveRDS(establecimientos, file = "~/R/projects/slepca/slepca/data/establecimientos.Rdata")
+saveRDS(establecimientos, file = "~/R/projects/slepca/data/establecimientos.Rdata")
 #saveRDS(X8escuelas_resultados_trabajo, file = "~/R/projects/slepca/slepca/data/8estab_promedios.Rdata")
-saveRDS(matricula16_20, file = "~/R/projects/slepca/data/matricula16_20.Rdata")
+#saveRDS(matricula16_20, file = "~/R/projects/slepca/data/matricula16_20.Rdata")
 #saveRDS(Resumen_Rendimiento_17_19, file = "~/R/projects/slepca/slepca/data/rendimiento17_19.Rdata")
 #saveRDS(simce4b2016_rbd, file = "~/R/projects/slepca/slepca/data/simce4to2016.Rdata", compress = FALSE)
 #saveRDS(simce4b2017_rbd, file = "~/R/projects/slepca/slepca/data/simce4to2017.Rdata", compress = FALSE)
 #saveRDS(simce4tob2019_slepca, file = "~/R/projects/slepca/slepca/data/simce4to2019.rda", compress = FALSE)
 
+establecimientos <- readRDS("~/R/projects/slepca/data/establecimientos.Rdata")
 hist_mat_det <- readRDS("~/R/projects/slepca/data/matricula16_20.Rdata")
 hist_mat <- readRDS("~/R/projects/slepca/data/hist_mat.Rdata")
 

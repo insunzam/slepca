@@ -3,14 +3,24 @@ library(tidyverse)
 library(dslabs)
 library(gridExtra)
 
-as_slepca_abril_2019 <- readRDS("~/R/projects/slepca/data/asistencia4_19.Rdata")
+#as_slepca_abril_2019 <- readRDS("~/R/projects/slepca/data/asistencia4_19.Rdata")
 
-as_slepca_abril_2019 <- as_slepca_abril_2019 %>% filter(V6 == "9" && V14 == "6")
+#as_slepca_abril_2019 <- as_slepca_abril_2019 %>% filter(V6 == "9" && V14 == "6")
 
-establecimientos <- readRDS("~/R/projects/slepca/data/establecimientos.rda")
-establecimientos<- estab %>% mutate(perc_fem = F/MATRICULA)
-establecimientos<- establecimientos %>% mutate(perc_mas = M/MATRICULA)
-establecimientos<- establecimientos %>% mutate(perc_map = MAPUCHE/MATRICULA)
+establecimientos <- readRDS("~/R/projects/slepca/data/establecimientos.Rdata")
+establecimientos[is.na(establecimientos)] <- 0
+establecimientos<- establecimientos %>% 
+  mutate(perc_fem = ifelse(MATRICULA == 0, 0, F/MATRICULA))
+establecimientos<- establecimientos %>% 
+  mutate(perc_mas = ifelse(MATRICULA == 0, 0, M/MATRICULA))
+establecimientos<- establecimientos %>% 
+  mutate(perc_map = ifelse(MATRICULA == 0, 0, MAPUCHE/MATRICULA))
+
+mat_seisagno <-  readRDS("~/R/projects/slepca/data/matricula16_20.Rdata")
+mat_seisagno[is.na(mat_seisagno)] <- 0
+
+
+
 
 p <- establecimientos %>% ggplot(aes(COMUNA, MATRICULA))
 p + geom_jitter(size = 2, color = "blue") +
@@ -63,6 +73,26 @@ m + geom_text(nudge_x = 0) +
   xlab("Porcentaje de Asistencia") +
   ylab("Matricula") +
   ggtitle("Porcentaje de Asistencia por Matricula (- de 40 Alumnas/os)") + 
+  geom_point(aes(col = AREA), size = 1)
+
+g <- establecimientos %>% 
+  filter(MATRICULA >= 40) %>% 
+  ggplot(aes(ASIST, perc_map, label = RBD))
+g + geom_text(nudge_x = 0) +
+  geom_point(size = 1) +
+  xlab("Porcentaje de Asistencia") +
+  ylab("Matricula") +
+  ggtitle("Porcentaje de Asistencia por Mapuche (+ de 40 Alumnas/os)") + 
+  geom_point(aes(col = AREA), size = 1)
+
+g1 <- establecimientos %>% 
+  filter(MATRICULA < 40) %>% 
+  ggplot(aes(ASIST, perc_map, label = RBD))
+g1 + geom_text(nudge_x = 0) +
+  geom_point(size = 1) +
+  xlab("Porcentaje de Asistencia") +
+  ylab("Matricula") +
+  ggtitle("Porcentaje de Asistencia por Mapuche (- de 40 Alumnas/os)") + 
   geom_point(aes(col = AREA), size = 1)
 
 r <- establecimientos %>% filter(MAPUCHE>0) %>% ggplot(aes(x = (MAPUCHE)))

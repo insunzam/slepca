@@ -4,7 +4,7 @@ library(tidyverse)
 library(gridExtra)
 #library(reshape2)
 
-setwd("/home/insunzamnt/R/projects/slepca/slepca")
+setwd("~/R/projects/slepca")
 codigos <- c(9118,9117,9116,9102,9111)
 codigo2 <- c(14,15,16,17,18)
 agno19 <- c(2019)
@@ -71,7 +71,7 @@ b1 <- res_com %>%
 b2 <- res_com %>%
   ggplot(aes(nom_com_rbd, pm)) +
   geom_bar(stat="identity", position = 'dodge', fill = "#00FF00") +
-  geom_text(aes(label=pm, vjust = 2.5)) +
+  geom_text(aes(label=pm, vjust=2.5)) +
   xlab("Comuna") + ylab("Resultado") +
   ggtitle("Resultado promedio 2016 - 2019 4to Básico Matemáticas")
 
@@ -93,7 +93,8 @@ b <- ggplot(df, aes(agno, value)) +
   geom_line(aes(color = variable, linetype = variable)) +
   scale_color_manual(values = c("darkred", "steelblue")) +
   expand_limits(y=150) +
-  geom_label(aes(label = value)) +
+  geom_label(aes(label = value), vjust=1.6, color="red", 
+             position = position_dodge(0.9), size=3.5) +
   xlab("Año") + ylab("Resultados") +
   ggtitle("Resultados 4to Básico Lenguaje y Matemáticas 2016 - 2019")
 b

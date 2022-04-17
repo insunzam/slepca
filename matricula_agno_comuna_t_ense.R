@@ -27,7 +27,10 @@ p <- df_com_agno %>%
   ggtitle("Matricula por Año y Comuna")
 p
 
+write_csv(df_com_agno, file = "~/R/projects/slepca/resultados/comuna_agno.csv")
+
 # por tipo educa
+
 df_com_bas <- matricula %>%
   group_by(AGNO, NOM_COM_RBD) %>%
   filter(ESTADO_ESTAB == 1 & xor(COD_ENSE == 110,COD_ENSE == 10)) %>%
@@ -41,6 +44,8 @@ b <- df_com_bas %>%
   xlab("Año") + ylab("Matricula") +
   ggtitle("Matricula Ens. Básica por Año y Comuna")
 b
+
+write_csv(df_com_bas, file = "~/R/projects/slepca/resultados/comuna_agno_basica.csv")
 
 df_com_med <- matricula %>%
   group_by(AGNO, NOM_COM_RBD) %>%
@@ -56,11 +61,12 @@ m <- df_com_med %>%
   ggtitle("Matricula Ens. Media por Año y Comuna")
 m
 
+write_csv(df_com_med, file = "~/R/projects/slepca/resultados/comuna_agno_media.csv")
+
 df_com_tp <- matricula %>%
   group_by(AGNO, NOM_COM_RBD) %>%
   filter(ESTADO_ESTAB == 1 & COD_ENSE >= 410) %>%
   summarize(tp = sum(MAT_TOTAL)) 
-
 
 t <- df_com_tp %>% 
   ggplot(aes(AGNO , tp, colour = NOM_COM_RBD)) + 
@@ -69,3 +75,5 @@ t <- df_com_tp %>%
   xlab("Año") + ylab("Matricula") +
   ggtitle("Matricula Ens. TP por Año y Comuna")
 t
+
+write_csv(df_com_tp, file = "~/R/projects/slepca/resultados/comuna_agno_tp.csv")

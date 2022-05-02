@@ -5,7 +5,7 @@ library(gridExtra)
 
 #saveRDS(establecimientos, file = "~/Documents/R/proyectos/slepca/data/establecimientos.rda")
 #load("~/Documents/R/proyectos/slepca/data/establecimientos.rda")
-establecimientos <- readRDS("~/R/projects/slepca/slepca/data/establecimientos.rda")
+establecimientos <- readRDS("~/R/projects/slepca/data/establecimientos.rda")
 #data(establecimientos)
 estab <- establecimientos[order(establecimientos$RBD),]
 
@@ -69,8 +69,6 @@ m + geom_text(nudge_x = 0) +
   ylab("Comuna") +
   ggtitle("Matricula") + 
   geom_point(aes(col = AREA), size = 1)
-
-
 
 
 r <- establecimientos %>% filter(MAPUCHE>0) %>% ggplot(aes(x = (MAPUCHE)))

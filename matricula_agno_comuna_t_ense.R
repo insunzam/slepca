@@ -77,3 +77,19 @@ t <- df_com_tp %>%
 t
 
 write_csv(df_com_tp, file = "~/R/projects/slepca/resultados/comuna_agno_tp.csv")
+
+df_com_esp <- matricula %>%
+  group_by(AGNO, NOM_COM_RBD) %>%
+  filter(ESTADO_ESTAB == 1 & xor(COD_ENSE == 212,COD_ENSE == 217)) %>%
+  summarize(tp = sum(MAT_TOTAL)) 
+
+t <- df_com_esp %>% 
+  ggplot(aes(AGNO , tp, colour = NOM_COM_RBD)) + 
+  geom_line(aes(linetype = NOM_COM_RBD), size = 1) + 
+  geom_label_repel(aes(label = tp), nudge_x = 0.35, size = 4) +
+  xlab("Año") + ylab("Matricula") +
+  ggtitle("Matricula Ens. Especial por Año y Comuna")
+t
+
+write_csv(df_com_tp, file = "~/R/projects/slepca/resultados/comuna_agno_esp.csv")
+

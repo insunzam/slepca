@@ -8,12 +8,13 @@ library(gridExtra)
 
 establecimientos <- readRDS("~/R/projects/slepca/data/establecimientos.Rdata")
 establecimientos[is.na(establecimientos)] <- 0
+
+establecimientos <- establecimientos %>% 
+  mutate(perc_fem = ifelse(MATRICULA == 0, 0, round(F/MATRICULA,1)))
 establecimientos<- establecimientos %>% 
-  mutate(perc_fem = ifelse(MATRICULA == 0, 0, F/MATRICULA))
+  mutate(perc_mas = ifelse(MATRICULA == 0, 0, round(M/MATRICULA,1)))
 establecimientos<- establecimientos %>% 
-  mutate(perc_mas = ifelse(MATRICULA == 0, 0, M/MATRICULA))
-establecimientos<- establecimientos %>% 
-  mutate(perc_map = ifelse(MATRICULA == 0, 0, MAPUCHE/MATRICULA))
+  mutate(perc_map = ifelse(MATRICULA == 0, 0, round(MAPUCHE/MATRICULA,1)))
 
 #mat_seisagno <-  readRDS("~/R/projects/slepca/data/matricula16_20.Rdata")
 #mat_seisagno[is.na(mat_seisagno)] <- 0
@@ -62,6 +63,7 @@ p1 + geom_bar() +
 #  ylab("Nº de Alumnas/os") +
 #  ggtitle("Matricula") + 
 #  geom_point(aes(col = AREA), size = 2)
+
 
 m <- establecimientos %>% filter(ASIST > 0) %>% 
   ggplot(aes(ASIST, MATRICULA))
@@ -122,12 +124,19 @@ grid.arrange(p, p1, ncol = 2)
 #Pueblos
 
 mat_ppo_comuna <- establecimientos %>% group_by(COMUNA) %>%
-  select(COMUNA, MATRICULA, MAPUCHE) %>%
-  summarize(P_ORIG = sum(MAPUCHE), SIN_PERT = sum(MATRICULA-MAPUCHE))
+  select(COMUNA, MATRICULA, MAPUCHE, perc_map) %>%
+  summarize(P_ORIG = sum(MAPUCHE), SIN_PERT = sum(MATRICULA-MAPUCHE), 
+            PERC_M = round(mean(perc_map),1), PERC_NM = 1- PERC_M)
 
 df_ppo_comuna <- mat_ppo_comuna %>%
   select(COMUNA, SIN_PERT, P_ORIG) %>%
   gather(key= "variable", value = "value", -COMUNA)
+
+
+df_ppo_comuna_perc <- mat_ppo_comuna %>%
+  select(COMUNA, PERC_M, PERC_NM) %>%
+  gather(key= "variable", value = "value", -COMUNA)
+
 
 ggplot(df_ppo_comuna, aes(fill=variable, y=value, x=COMUNA)) + 
   geom_bar(position="stack", stat="identity") +
@@ -136,7 +145,17 @@ ggplot(df_ppo_comuna, aes(fill=variable, y=value, x=COMUNA)) +
   scale_fill_hue(l=40) +
   theme_minimal() +
   xlab("Comuna") + ylab("Matricula") +
-  ggtitle("Matricula de Estudiantes Mapuches por comuna Costa Araucanía 2021")
+
+  ggtitle("Matricula de Estudiantes Mapuche por comuna Costa Araucanía 2021")
+
+ggplot(df_ppo_comuna_perc, aes(fill=variable, y=value, x=COMUNA)) + 
+  geom_bar(position="stack", stat="identity") +
+  geom_text(aes(label=value), vjust=1.6, color="white", 
+            position = position_stack(0.9), size=3.5) +
+  scale_fill_hue(l=40) +
+  theme_minimal() +
+  xlab("Comuna") + ylab("Matricula") +
+  ggtitle("Porcentaje de Estudiantes Mapuche por comuna Costa Araucanía 2021")
 
 establecimientos %>% ggplot(aes(perc_map, fill = AREA)) + 
   geom_density(alpha = 0.2) +

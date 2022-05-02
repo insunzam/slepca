@@ -4,7 +4,7 @@ library(tidyverse)
 library(gridExtra)
 #library(reshape2)
 
-setwd("/home/insunzamnt/R/projects/slepca/slepca")
+#setwd("/home/insunzamnt/R/projects/slepca")
 agno18 <- c(2018)
 
 #Carga de datos

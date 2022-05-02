@@ -14,4 +14,5 @@ estab <- select(filter(establecimientos,AREA == "RURAL"), c("RBD","COMUNA","AREA
 
 mezc <- inner_join(x=matricula, y=establecimientos, by= "RBD")
 
+write_csv(df_com_agno, file = "~/R/projects/slepca/resultados/comuna_agno.csv")
 

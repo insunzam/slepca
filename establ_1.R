@@ -126,6 +126,7 @@ grid.arrange(p, p1, ncol = 2)
 mat_ppo_comuna <- establecimientos %>% group_by(COMUNA) %>%
   select(COMUNA, MATRICULA, MAPUCHE, perc_map) %>%
   summarize(P_ORIG = sum(MAPUCHE), SIN_PERT = sum(MATRICULA-MAPUCHE), 
+
             PERC_M = round(mean(perc_map),1), PERC_NM = 1- PERC_M)
 
 df_ppo_comuna <- mat_ppo_comuna %>%

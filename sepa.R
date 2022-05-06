@@ -39,7 +39,7 @@ sepa_fin_ejes$NIVEL <- replace(sepa_fin_ejes$NIVEL, sepa_fin_ejes$NIVEL == "1° 
 sepa_fin_ejes$NIVEL <- replace(sepa_fin_ejes$NIVEL, sepa_fin_ejes$NIVEL == "2° Básico", "2B")
 sepa_fin_ejes$NIVEL <- replace(sepa_fin_ejes$NIVEL, sepa_fin_ejes$NIVEL == "3° Básico", "3B")
 sepa_fin_ejes$NIVEL <- replace(sepa_fin_ejes$NIVEL, sepa_fin_ejes$NIVEL == "4° Básico", "4B")
-sepa_fin_ejes$EJE <- replace(sepa_fin_ejes$EJE, sepa_fin_ejes$EJE == "INFORMACION_EXPLÍCITA", "IE")
+sepa_fin_ejes$EJE <- replace(sepa_fin_ejes$EJE, sepa_fin_ejes$EJE == "INFORMACIÓN EXPLÍCITA", "IE")
 sepa_fin_ejes$EJE <- replace(sepa_fin_ejes$EJE, sepa_fin_ejes$EJE == "INFORMACION IMPLICITA", "II")
 sepa_fin_ejes$EJE <- replace(sepa_fin_ejes$EJE, sepa_fin_ejes$EJE == "CONOCIMIENTO Y RECURSOS DEL LENGUAJE", "CRL")
 sepa_fin_ejes$EJE <- replace(sepa_fin_ejes$EJE, sepa_fin_ejes$EJE == "ESTADÍSTICA Y PROBABILIDAD", "EYP")

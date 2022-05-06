@@ -1,8 +1,7 @@
 
 #saveRDS(resultados_agencia_8esc, file = "~/R/projects/slepca/slepca/data/8estab_2.Rdata")
-#saveRDS(establecimientos, file = "~/R/projects/slepca/data/establecimientos.Rdata")
-#saveRDS(X8escuelas_resultados_trabajo, file = "~/R/projects/slepca/slepca/data/8estab_promedios.Rdata")
-#saveRDS(matricula16_20, file = "~/R/projects/slepca/data/matricula16_20.Rdata")
+saveRDS(establecimientos, file = "~/R/projects/slepca/data/establecimientos.Rdata")
+#saveRDS(X8escuelas_resultados_trabajo, file = "~/R/projects/slepca/slepca/data/8estab_promedios.Rdata")·
 #saveRDS(matricula16_20, file = "~/R/projects/slepca/data/matricula16_20.Rdata")
 #saveRDS(Resumen_Rendimiento_17_19, file = "~/R/projects/slepca/slepca/data/rendimiento17_19.Rdata")
 #saveRDS(simce4b2016_rbd, file = "~/R/projects/slepca/slepca/data/simce4to2016.Rdata", compress = FALSE)
@@ -15,9 +14,13 @@
 #saveRDS(dia_ejes_res_2021, file = "~/R/projects/slepca/data/dia_ejes_res_2021.Rdata", compress = FALSE)
 #saveRDS(dia_categ_2021, file = "~/R/projects/slepca/data/dia_categ_2021.Rdata", compress = FALSE)
 #saveRDS(sepa_final_puntaje, file = "~/R/projects/slepca/data/sepa_final_puntaje.Rdata", compress = FALSE)
-saveRDS(sepa_final_ejes, file = "~/R/projects/slepca/data/sepa_final_ejes.Rdata", compress = FALSE)
+#saveRDS(sepa_final_ejes, file = "~/R/projects/slepca/data/sepa_final_ejes.Rdata", compress = FALSE)
+#saveRDS(nomina_estudiantes_abril2022, file = "~/R/projects/slepca/data/nomina_abril_2022.Rdata", compress = FALSE)
+#saveRDS(eval_doce, file = "~/R/projects/slepca/data/eval_docente.Rdata", compress = FALSE)
+saveRDS(eval_doce_ab, file = "~/R/projects/slepca/data/eval_doce_ab.Rdata", compress = FALSE)
 
-
+eval <- readRDS("~/R/projects/slepca/data/eval_doce_ab.Rdata")
+nomina <- readRDS("~/R/projects/slepca/data/nomina_abril_2022.Rdata")
 establecimientos <- readRDS("~/R/projects/slepca/data/establecimientos.Rdata")
 hist_mat_det <- readRDS("~/R/projects/slepca/data/matricula16_20.Rdata")
 hist_mat <- readRDS("~/R/projects/slepca/data/hist_mat.Rdata")

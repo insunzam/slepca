@@ -30,12 +30,14 @@ ggplot(df_agn_genero, aes(fill=variable, y=value, x=AGNO)) +
   scale_fill_hue(l=40) +
   theme_minimal() +
   xlab("Año") + ylab("Matricula") +
-  ggtitle("Matricula por año y sexo Costa Araucanía 2016 - 2021")
+  ggtitle("Matricula por año y genero Costa Araucanía 2016 - 2022")
+
+write_csv(df_agn_genero, file = "~/R/projects/slepca/resultados/genero_agno.csv")
 
 write_csv(df_agn_genero, file = "~/R/projects/slepca/resultados/genero_agno.csv")
 
 #Comuna y Genero
-mat_genero_comuna <- matricula %>% filter(AGNO == 2021) %>%
+mat_genero_comuna <- matricula %>% filter(AGNO == 2022) %>%
   group_by(NOM_COM_RBD) %>%
   select(NOM_COM_RBD, MAT_HOM_TOT, MAT_MUJ_TOT) %>%
   summarize(ALUMNOS = sum(MAT_HOM_TOT), ALUMNAS = sum(MAT_MUJ_TOT))
@@ -50,8 +52,8 @@ ggplot(df_com_genero, aes(fill=variable, y=value, x=NOM_COM_RBD)) +
             position = position_dodge(0.9), size=3.5) +
   scale_fill_hue(l=40) +
   theme_minimal() +
-  xlab("Año") + ylab("Resultados") +
-  ggtitle("Matricula por comuna y sexo Costa Araucanía 2021")
+  xlab("Comuna") + ylab("Matricula") +
+  ggtitle("Matricula por comuna y genero Costa Araucanía 2022")
 
 write_csv(df_com_genero, file = "~/R/projects/slepca/resultados/genero_comuna.csv")
 
@@ -72,12 +74,14 @@ ggplot(df_area_agn, aes(fill=variable, y=value, x=AGNO)) +
   scale_fill_hue(l=40) +
   theme_minimal() +
   xlab("Año") + ylab("Matricula") +
-  ggtitle("Matricula por año y ruralidad Costa Araucanía 2016 - 2021")
+
+  ggtitle("Matricula por año y ruralidad Costa Araucanía 2016 - 2022")
 
 write_csv(df_area_agn, file = "~/R/projects/slepca/resultados/area_agno.csv")
 
 #Area y Genero
-mat_genero_area <- matricula %>% filter(AGNO == 2021) %>%
+
+mat_genero_area <- matricula %>% filter(AGNO == 2022) %>%
   group_by(RURAL_RBD) %>%
   select(RURAL_RBD, MAT_HOM_TOT, MAT_MUJ_TOT) %>%
   summarize(ALUMNOS = sum(MAT_HOM_TOT), ALUMNAS = sum(MAT_MUJ_TOT))
@@ -98,6 +102,6 @@ ggplot(df_area_genero, aes(fill=variable, y=value, x=RURAL_RBD)) +
   scale_fill_hue(l=40) +
   theme_minimal() +
   xlab("Año") + ylab("Matricula") +
-  ggtitle("Matricula Rural/Urbana y sexo Costa Araucanía 2021")
+  ggtitle("Matricula Rural/Urbana y genero Costa Araucanía 2022")
 
 write_csv(df_area_genero, file = "~/R/projects/slepca/resultados/area_genero.csv")

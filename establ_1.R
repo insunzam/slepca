@@ -8,12 +8,13 @@ library(gridExtra)
 
 establecimientos <- readRDS("~/R/projects/slepca/data/establecimientos.Rdata")
 establecimientos[is.na(establecimientos)] <- 0
+
+establecimientos <- establecimientos %>% 
+  mutate(perc_fem = ifelse(MATRICULA == 0, 0, round(F/MATRICULA,1)))
 establecimientos<- establecimientos %>% 
-  mutate(perc_fem = ifelse(MATRICULA == 0, 0, F/MATRICULA))
+  mutate(perc_mas = ifelse(MATRICULA == 0, 0, round(M/MATRICULA,1)))
 establecimientos<- establecimientos %>% 
-  mutate(perc_mas = ifelse(MATRICULA == 0, 0, M/MATRICULA))
-establecimientos<- establecimientos %>% 
-  mutate(perc_map = ifelse(MATRICULA == 0, 0, MAPUCHE/MATRICULA))
+  mutate(perc_map = ifelse(MATRICULA == 0, 0, round(MAPUCHE/MATRICULA,1)))
 
 #mat_seisagno <-  readRDS("~/R/projects/slepca/data/matricula16_20.Rdata")
 #mat_seisagno[is.na(mat_seisagno)] <- 0
@@ -124,7 +125,8 @@ grid.arrange(p, p1, ncol = 2)
 mat_ppo_comuna <- establecimientos %>% group_by(COMUNA) %>%
   select(COMUNA, MATRICULA, MAPUCHE, perc_map) %>%
   summarize(P_ORIG = sum(MAPUCHE), SIN_PERT = sum(MATRICULA-MAPUCHE), 
-            PERC_M = mean(perc_map), PERC_NM = 1- PERC_M)
+
+            PERC_M = round(mean(perc_map),1), PERC_NM = 1- PERC_M)
 
 df_ppo_comuna <- mat_ppo_comuna %>%
   select(COMUNA, SIN_PERT, P_ORIG) %>%

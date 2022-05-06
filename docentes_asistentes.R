@@ -32,7 +32,7 @@ ggplot(df_agn_genero, aes(fill=variable, y=value, x=AGNO)) +
   scale_fill_hue(l=40) +
   theme_minimal() +
   xlab("Año") + ylab("N° Asistentes") +
-  ggtitle("Asistentes por año y sexo Costa Araucanía 2019 - 2021")
+  ggtitle("Asistentes por año y genero Costa Araucanía 2019 - 2021")
 
 #Docentes
 #Docentes Comunas
@@ -75,7 +75,7 @@ ggplot(df_agn, aes(fill=variable, y=value, x=AGNO)) +
   scale_fill_hue(l=40) +
   theme_minimal() +
   xlab("Año") + ylab("N° Asistentes") +
-  ggtitle("Asistentes por año y sexo Costa Araucanía 2019 - 2021")
+  ggtitle("Asistentes por año y genero Costa Araucanía 2019 - 2021")
 
 #Docentes Horas por Funcion
 doce_funcion_agno <- docentes %>% group_by(AGNO) %>%
@@ -96,4 +96,4 @@ ggplot(df_agn_genero, aes(fill=variable, y=value, x=AGNO)) +
   scale_fill_hue(l=40) +
   theme_bw() +
   xlab("Año") + ylab("N° Horas") +
-  ggtitle("Dotación Docente Total de Horas por concepto Costa Araucanía 2019 - 2021")
+  ggtitle("Dotación Docente - Total de Horas por concepto Costa Araucanía 2019 - 2021")

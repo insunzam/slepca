@@ -12,6 +12,8 @@ dia_categ <- readRDS("~/R/projects/slepca/data/dia_categ_2021.Rdata")
 dia_categ$RBD <- as.character(dia_categ$RBD)
 estab <- establecimientos %>% select("RBD", "COMUNA", "AREA", "MATRICULA", "ASIST"
                                      , "PO", "MAPUCHE", "F", "M")
+
+#CATEGORIAS
 dc <- inner_join(x=dia_categ, y=estab, by= "RBD")
 #filter(SECTOR == "Lectura") %>%
 dcl <- dc %>% filter(SECTOR == "Lectura") %>%
@@ -182,30 +184,31 @@ b3 <- dc %>%
 grid.arrange(b1, b2, b3, ncol = 1)
 write_csv(dc, file = "~/R/projects/slepca/resultados/dia_categ_comuna_mat.csv")
 
+#EJES
 de <- inner_join(x=dia_ejes, y=estab, by= "RBD")
 de <- de %>% filter(SECTOR == "Lenguaje") %>%
-  group_by(COMUNA) %>% 
+  group_by(NIVEL, EJE) %>% 
   summarize(RESCORR = round(mean(P_RESCORR),1))
 
-ggplot(de, aes(x = COMUNA, y = RESCORR, fill = COMUNA)) +
+ggplot(de, aes(x = NIVEL, y = RESCORR, fill = EJE)) +
   geom_col(position = "dodge") +
   geom_text(aes(label=RESCORR), position = position_dodge(0.9), vjust = 2.5) +
-  xlab("Comuna") + ylab("Promedio") +
-  ggtitle("Promedio de Respuestas Correctas por Comuna  DIA Lenguaje")
+  xlab("Nivel") + ylab("Promedio") +
+  ggtitle("Promedio de % Respuestas Correctas por Nivel y Eje  DIA Lenguaje")
 
-write_csv(de, file = "~/R/projects/slepca/resultados/dia_eje_comuna_leng.csv")
+write_csv(de, file = "~/R/projects/slepca/resultados/dia_eje_nivel_eje_leng.csv")
 
 de <- inner_join(x=dia_ejes, y=estab, by= "RBD")
 de <- de %>% filter(SECTOR == "Matematicas") %>%
-  group_by(COMUNA) %>% 
+  group_by(NIVEL, EJE) %>% 
   summarize(RESCORR = round(mean(P_RESCORR),1))
 
-ggplot(de, aes(x = COMUNA, y = RESCORR, fill = COMUNA)) +
+ggplot(de, aes(x = NIVEL, y = RESCORR, fill = EJE)) +
   geom_col(position = "dodge") +
   geom_text(aes(label=RESCORR), position = position_dodge(0.9), vjust = 2.5) +
-  xlab("Comuna") + ylab("Promedio") +
-  ggtitle("Promedio de Respuestas Correctas por Comuna  DIA Matemáticas")
-write_csv(de, file = "~/R/projects/slepca/resultados/dia_eje_comuna_mat.csv")
+  xlab("Nivel") + ylab("Promedio") +
+  ggtitle("Promedio de % Respuestas Correctas por Nivel y Eje  DIA Matemáticas")
+write_csv(de, file = "~/R/projects/slepca/resultados/dia_eje_nivel_mat.csv")
 
 de_n <- inner_join(x=dia_ejes, y=estab, by= "RBD")
 de_n <- de_n %>% filter(SECTOR == "Lenguaje") %>%

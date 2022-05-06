@@ -1,6 +1,7 @@
 library(dplyr)
 library(tidyverse)
 library(gridExtra)
+library(reshape2)
 
 #SEPA Inicial 2021 carga
 establecimientos <- readRDS("~/R/projects/slepca/data/establecimientos.Rdata")
@@ -11,6 +12,118 @@ dia_categ <- readRDS("~/R/projects/slepca/data/dia_categ_2021.Rdata")
 dia_categ$RBD <- as.character(dia_categ$RBD)
 estab <- establecimientos %>% select("RBD", "COMUNA", "AREA", "MATRICULA", "ASIST"
                                      , "PO", "MAPUCHE", "F", "M")
+dc <- inner_join(x=dia_categ, y=estab, by= "RBD")
+#filter(SECTOR == "Lectura") %>%
+dcl <- dc %>% filter(SECTOR == "Lectura") %>%
+  group_by(COMUNA) %>% 
+  summarize(INSA = round(mean(INS[INS!=0]),1), INTE = round(mean(INT[INT!=0]),1), SATI = round(mean(SAT[SAT!=0]),1))
+dcl_n <- dc %>% filter(SECTOR == "Lectura") %>%
+  group_by(NIVEL) %>% 
+  summarize(INSA = round(mean(INS[INS!=0]),1), INTE = round(mean(INT[INT!=0]),1), SATI = round(mean(SAT[SAT!=0]),1))
+dcm <- dc %>% filter(SECTOR == "Matematicas") %>%
+  group_by(COMUNA) %>% 
+  summarize(INSA = round(mean(INS[INS!=0]),1), INTE = round(mean(INT[INT!=0]),1), SATI = round(mean(SAT[SAT!=0]),1))
+dcm_n <- dc %>% filter(SECTOR == "Matematicas") %>%
+  group_by(NIVEL) %>% 
+  summarize(INSA = round(mean(INS[INS!=0]),1), INTE = round(mean(INT[INT!=0]),1), SATI = round(mean(SAT[SAT!=0]),1))
+dch <- dc %>% filter(SECTOR == "Historia") %>%
+  group_by(COMUNA) %>% 
+  summarize(INSA = round(mean(INS[INS!=0]),1), INTE = round(mean(INT[INT!=0]),1), SATI = round(mean(SAT[SAT!=0]),1))
+dch_n <- dc %>% filter(SECTOR == "Historia") %>%
+  group_by(NIVEL) %>% 
+  summarize(INSA = round(mean(INS[INS!=0]),1), INTE = round(mean(INT[INT!=0]),1), SATI = round(mean(SAT[SAT!=0]),1))
+dcf <- dc %>% filter(SECTOR == "Formacion") %>%
+  group_by(COMUNA) %>% 
+  summarize(INSA = round(mean(INS[INS!=0]),1), INTE = round(mean(INT[INT!=0]),1), SATI = round(mean(SAT[SAT!=0]),1))
+dcf_n <- dc %>% filter(SECTOR == "Formacion") %>%
+  group_by(NIVEL) %>% 
+  summarize(INSA = round(mean(INS[INS!=0]),1), INTE = round(mean(INT[INT!=0]),1), SATI = round(mean(SAT[SAT!=0]),1))
+
+dcl <- melt(dcl, id.var='COMUNA')
+e1 <- dcl %>% filter(!is.na(value)) %>% 
+  ggplot(aes(x = COMUNA, y = value, fill = variable)) + 
+  geom_bar(stat = "identity", position = "fill") +
+  geom_text(aes(label=value),position = position_fill(vjust = 0.5)) +
+  scale_fill_brewer(palette="Dark2") + 
+  xlab("Comunas") + ylab("Categoria") +
+  ggtitle("Distribución por Categoría - Lenguaje DIA 2021")
+
+dcl_n <- melt(dcl_n, id.var='NIVEL')
+e1n <- dcl_n %>% filter(!is.na(value)) %>% 
+  ggplot(aes(x = NIVEL, y = value, fill = variable)) + 
+  geom_bar(stat = "identity", position = "fill") +
+  geom_text(aes(label=value),position = position_fill(vjust = 0.5)) +
+  scale_fill_brewer(palette="Dark2") + 
+  xlab("Niveles") + ylab("Categoria") +
+  ggtitle("Distribución por Nivel y Categoría - Lenguaje DIA 2021")
+
+dcm <- melt(dcm, id.var='COMUNA')
+e2 <- dcm %>% filter(value > 0) %>% 
+  ggplot(aes(x = COMUNA, y = value, fill = variable)) + 
+  geom_bar(stat = "identity", position = "fill") + 
+  geom_text(aes(label=value),position = position_fill(vjust = 0.5)) +
+  scale_fill_brewer(palette="Dark2") +
+  xlab("Comunas") + ylab("Categoría") +
+  ggtitle("Distribución por Categoría -  Matemáticas DIA 2021")
+
+dcm_n <- melt(dcm_n, id.var='NIVEL')
+e2n <- dcm_n %>% filter(value > 0) %>% 
+  ggplot(aes(x = NIVEL, y = value, fill = variable)) + 
+  geom_bar(stat = "identity", position = "fill") + 
+  geom_text(aes(label=value),position = position_fill(vjust = 0.5)) +
+  scale_fill_brewer(palette="Dark2") +
+  xlab("Niveles") + ylab("Categoría") +
+  ggtitle("Distribución por Nivel y Categoría -  Matemáticas DIA 2021")
+
+dch <- melt(dch, id.var='COMUNA')
+e3 <- dch %>% filter(!is.na(value)) %>% 
+  ggplot(aes(x = COMUNA, y = value, fill = variable)) + 
+  geom_bar(stat = "identity", position = "fill") +
+  geom_text(aes(label=value),position = position_fill(vjust = 0.5)) +
+  scale_fill_brewer(palette="Dark2") + 
+  xlab("Comunas") + ylab("Categoría") +
+  ggtitle("Distribución por Categoría -  Historia DIA 2021")
+
+dch_n <- melt(dch_n, id.var='NIVEL')
+e3n <- dch_n %>% filter(!is.na(value)) %>% 
+  ggplot(aes(x = NIVEL, y = value, fill = variable)) + 
+  geom_bar(stat = "identity", position = "fill") +
+  geom_text(aes(label=value),position = position_fill(vjust = 0.5)) +
+  scale_fill_brewer(palette="Dark2") + 
+  xlab("Comunas") + ylab("Categoría") +
+  ggtitle("Distribución por Nivel y Categoría - Historia DIA 2021")
+
+dcf <- melt(dcf, id.var='COMUNA')
+e4 <- dcf %>% filter(value > 0) %>% 
+  ggplot(aes(x = COMUNA, y = value, fill = variable)) + 
+  geom_bar(stat = "identity", position = "fill") + 
+  geom_text(aes(label=value),position = position_fill(vjust = 0.5)) +
+  scale_fill_brewer(palette="Dark2") +
+  xlab("Comunas") + ylab("Categoría") +
+  ggtitle("Distribución por Categoría -  Formacion DIA 2021")
+
+dcf_n <- melt(dcf_n, id.var='NIVEL')
+e4n <- dcf_n %>% filter(value > 0) %>% 
+  ggplot(aes(x = NIVEL, y = value, fill = variable)) + 
+  geom_bar(stat = "identity", position = "fill") + 
+  geom_text(aes(label=value),position = position_fill(vjust = 0.5)) +
+  scale_fill_brewer(palette="Dark2") +
+  xlab("Comunas") + ylab("Categoría") +
+  ggtitle("Distribución por Nivel y Categoría - Formacion DIA 2021")
+
+grid.arrange(e1, e2)
+grid.arrange(e3, e4)
+grid.arrange(e1n, e2n)
+grid.arrange(e3n, e4n)
+write_csv(dcl, file = "~/R/projects/slepca/resultados/dia_categ_lenguaje.csv")
+write_csv(dcm, file = "~/R/projects/slepca/resultados/dia_categ_matematicas.csv")
+write_csv(dch, file = "~/R/projects/slepca/resultados/dia_categ_historia.csv")
+write_csv(dcf, file = "~/R/projects/slepca/resultados/dia_categ_formacion.csv")
+write_csv(dcl_n, file = "~/R/projects/slepca/resultados/dia_categ_lenguaje_n.csv")
+write_csv(dcm_n, file = "~/R/projects/slepca/resultados/dia_categ_matematicas_n.csv")
+write_csv(dch_n, file = "~/R/projects/slepca/resultados/dia_categ_historia_n.csv")
+write_csv(dcf_n, file = "~/R/projects/slepca/resultados/dia_categ_formacion_n.csv")
+
 dc <- inner_join(x=dia_categ, y=estab, by= "RBD")
 dc <- dc %>% filter(SECTOR == "Lectura") %>%
   group_by(COMUNA) %>% 
@@ -38,6 +151,7 @@ b3 <- dc %>%
   ggtitle("Promedio por Comuna DIA Lectura Satisfactorio")
 
 grid.arrange(b1, b2, b3, ncol = 1)
+write_csv(dc, file = "~/R/projects/slepca/resultados/dia_categ_comuna_len.csv")
 
 dc <- inner_join(x=dia_categ, y=estab, by= "RBD")
 dc <- dc %>% filter(SECTOR == "Matematicas") %>%
@@ -66,6 +180,7 @@ b3 <- dc %>%
   ggtitle("Promedio por Comuna DIA Matemáticas Satisfactorio")
 
 grid.arrange(b1, b2, b3, ncol = 1)
+write_csv(dc, file = "~/R/projects/slepca/resultados/dia_categ_comuna_mat.csv")
 
 de <- inner_join(x=dia_ejes, y=estab, by= "RBD")
 de <- de %>% filter(SECTOR == "Lenguaje") %>%
@@ -78,6 +193,8 @@ ggplot(de, aes(x = COMUNA, y = RESCORR, fill = COMUNA)) +
   xlab("Comuna") + ylab("Promedio") +
   ggtitle("Promedio de Respuestas Correctas por Comuna  DIA Lenguaje")
 
+write_csv(de, file = "~/R/projects/slepca/resultados/dia_eje_comuna_leng.csv")
+
 de <- inner_join(x=dia_ejes, y=estab, by= "RBD")
 de <- de %>% filter(SECTOR == "Matematicas") %>%
   group_by(COMUNA) %>% 
@@ -88,3 +205,29 @@ ggplot(de, aes(x = COMUNA, y = RESCORR, fill = COMUNA)) +
   geom_text(aes(label=RESCORR), position = position_dodge(0.9), vjust = 2.5) +
   xlab("Comuna") + ylab("Promedio") +
   ggtitle("Promedio de Respuestas Correctas por Comuna  DIA Matemáticas")
+write_csv(de, file = "~/R/projects/slepca/resultados/dia_eje_comuna_mat.csv")
+
+de_n <- inner_join(x=dia_ejes, y=estab, by= "RBD")
+de_n <- de_n %>% filter(SECTOR == "Lenguaje") %>%
+  group_by(NIVEL) %>% 
+  summarize(RESCORR = round(mean(P_RESCORR),1))
+
+ggplot(de_n, aes(x = NIVEL, y = RESCORR, fill = NIVEL)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label=RESCORR), position = position_dodge(0.9), vjust = 2.5) +
+  xlab("Nivel") + ylab("Promedio") +
+  ggtitle("Promedio de Respuestas Correctas por Nivel  DIA Lenguaje")
+
+write_csv(de_n, file = "~/R/projects/slepca/resultados/dia_eje_nivel_leng.csv")
+
+de_n <- inner_join(x=dia_ejes, y=estab, by= "RBD")
+de_n <- de_n %>% filter(SECTOR == "Matematicas") %>%
+  group_by(NIVEL) %>% 
+  summarize(RESCORR = round(mean(P_RESCORR),1))
+
+ggplot(de_n, aes(x = NIVEL, y = RESCORR, fill = NIVEL)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label=RESCORR), position = position_dodge(0.9), vjust = 2.5) +
+  xlab("Nivel") + ylab("Promedio") +
+  ggtitle("Promedio de Respuestas Correctas por Nivel  DIA Matemáticas")
+write_csv(de, file = "~/R/projects/slepca/resultados/dia_eje_nivel_mat.csv")

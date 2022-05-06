@@ -2,7 +2,6 @@ library(dplyr)
 library(tidyverse)
 library(dslabs)
 library(reshape2)
-library(forcats)
 
 #SEPA Inicial 2021 carga
 sepa_ini <- readRDS("~/R/projects/slepca/data/sepa_inicial_puntaje.Rdata")
@@ -39,7 +38,7 @@ sepa_fin_ejes$NIVEL <- replace(sepa_fin_ejes$NIVEL, sepa_fin_ejes$NIVEL == "1° 
 sepa_fin_ejes$NIVEL <- replace(sepa_fin_ejes$NIVEL, sepa_fin_ejes$NIVEL == "2° Básico", "2B")
 sepa_fin_ejes$NIVEL <- replace(sepa_fin_ejes$NIVEL, sepa_fin_ejes$NIVEL == "3° Básico", "3B")
 sepa_fin_ejes$NIVEL <- replace(sepa_fin_ejes$NIVEL, sepa_fin_ejes$NIVEL == "4° Básico", "4B")
-sepa_fin_ejes$EJE <- replace(sepa_fin_ejes$EJE, sepa_fin_ejes$EJE == "INFORMACIÓN EXPLÍCITA", "IE")
+sepa_fin_ejes$EJE <- replace(sepa_fin_ejes$EJE, sepa_fin_ejes$EJE == "INFORMACION EXPLICITA", "IE")
 sepa_fin_ejes$EJE <- replace(sepa_fin_ejes$EJE, sepa_fin_ejes$EJE == "INFORMACION IMPLICITA", "II")
 sepa_fin_ejes$EJE <- replace(sepa_fin_ejes$EJE, sepa_fin_ejes$EJE == "CONOCIMIENTO Y RECURSOS DEL LENGUAJE", "CRL")
 sepa_fin_ejes$EJE <- replace(sepa_fin_ejes$EJE, sepa_fin_ejes$EJE == "ESTADÍSTICA Y PROBABILIDAD", "EYP")
@@ -67,13 +66,13 @@ sepini_nivel_ejes <- sepini_nivel_ejes %>%
   group_by(SECTOR, EJE, NIVEL) %>% 
   summarize(VALOR = round(mean(VALOR),2))
 
-# sepini_nivel_ejes %>%
-#  mutate(EJE=fct_reorder(EJE,SECTOR)) %>%
   ggplot(sepini_nivel_ejes, aes(x = EJE , y = VALOR, fill = NIVEL)) +
   geom_col(position = "dodge") +
   geom_text(aes(label=VALOR), position = position_dodge(0.9), vjust = 2.5) +
-  ggtitle("Resultados Promedio por Nivel - SEPA Inicial")
+  ggtitle("Resultados Promedio por Eje y Nivel - SEPA Inicial")
 
+write_csv(sepini_nivel, file = "~/R/projects/slepca/resultados/sepini_nivel.csv")
+write_csv(sepini_nivel_ejes, file = "~/R/projects/slepca/resultados/sepini_nivel_ejes.csv")  
 
 #SEPA Final 2021
   sepfin_nivel <- sepa_fin %>% filter(PUNTAJE > 0)
@@ -86,7 +85,7 @@ sepini_nivel_ejes <- sepini_nivel_ejes %>%
   ggplot(sepfin_nivel, aes(x = SECTOR, y = PUNTAJE, fill = NIVEL)) +
     geom_col(position = "dodge") +
     geom_text(aes(label=PUNTAJE), position = position_dodge(0.9), vjust = 2.5) +
-    ggtitle("Resultados Promedio por Nivel - SEPA Final")
+    ggtitle("Resultados Promedio por Sector y Nivel - SEPA Final")
   
   sepfin_nivel_ejes <- sepfin_nivel_ejes %>% 
     group_by(SECTOR, EJE, NIVEL) %>% 
@@ -97,5 +96,7 @@ sepini_nivel_ejes <- sepini_nivel_ejes %>%
   ggplot(sepfin_nivel_ejes, aes(x = EJE , y = VALOR, fill = NIVEL)) +
     geom_col(position = "dodge") +
     geom_text(aes(label=VALOR), position = position_dodge(0.9), vjust = 2.5) +
-    ggtitle("Resultados Promedio por Nivel - SEPA Final")
+    ggtitle("Resultados Promedio por Eje y Nivel - SEPA Final")
 
+write_csv(sepfin_nivel, file = "~/R/projects/slepca/resultados/sepfin_nivel.csv")
+write_csv(sepfin_nivel_ejes, file = "~/R/projects/slepca/resultados/sepfin_nivel_ejes.csv")

@@ -194,7 +194,7 @@ ggplot(de, aes(x = NIVEL, y = RESCORR, fill = EJE)) +
   geom_col(position = "dodge") +
   geom_text(aes(label=RESCORR), position = position_dodge(0.9), vjust = 2.5) +
   xlab("Nivel") + ylab("Promedio") +
-  ggtitle("Promedio de % Respuestas Correctas por Nivel y Eje  DIA Lenguaje")
+  ggtitle("Porcentaje Respuestas Correctas por Nivel y Eje  DIA Lenguaje")
 
 write_csv(de, file = "~/R/projects/slepca/resultados/dia_eje_nivel_eje_leng.csv")
 
@@ -207,7 +207,7 @@ ggplot(de, aes(x = NIVEL, y = RESCORR, fill = EJE)) +
   geom_col(position = "dodge") +
   geom_text(aes(label=RESCORR), position = position_dodge(0.9), vjust = 2.5) +
   xlab("Nivel") + ylab("Promedio") +
-  ggtitle("Promedio de % Respuestas Correctas por Nivel y Eje  DIA Matemáticas")
+  ggtitle("Porcentaje Respuestas Correctas por Nivel y Eje  DIA Matemáticas")
 write_csv(de, file = "~/R/projects/slepca/resultados/dia_eje_nivel_mat.csv")
 
 de_n <- inner_join(x=dia_ejes, y=estab, by= "RBD")
@@ -219,7 +219,7 @@ ggplot(de_n, aes(x = NIVEL, y = RESCORR, fill = NIVEL)) +
   geom_col(position = "dodge") +
   geom_text(aes(label=RESCORR), position = position_dodge(0.9), vjust = 2.5) +
   xlab("Nivel") + ylab("Promedio") +
-  ggtitle("Promedio de Respuestas Correctas por Nivel  DIA Lenguaje")
+  ggtitle("Respuestas Correctas por Nivel  DIA Lenguaje")
 
 write_csv(de_n, file = "~/R/projects/slepca/resultados/dia_eje_nivel_leng.csv")
 
@@ -232,5 +232,5 @@ ggplot(de_n, aes(x = NIVEL, y = RESCORR, fill = NIVEL)) +
   geom_col(position = "dodge") +
   geom_text(aes(label=RESCORR), position = position_dodge(0.9), vjust = 2.5) +
   xlab("Nivel") + ylab("Promedio") +
-  ggtitle("Promedio de Respuestas Correctas por Nivel  DIA Matemáticas")
+  ggtitle("Respuestas Correctas por Nivel  DIA Matemáticas")
 write_csv(de, file = "~/R/projects/slepca/resultados/dia_eje_nivel_mat.csv")

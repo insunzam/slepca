@@ -6,7 +6,6 @@ library(reshape2)
 
 asistentes <- readRDS("~/R/projects/slepca/data/asistentes2019_2021.Rdata")
 write_csv(asistentes, file = "~/R/projects/slepca/fuentes/asistentes2019_2021.csv")
-
 asistentes$RBD <- as.character(asistentes$RBD)
 asistentes$COD_COM_RBD <- as.character(asistentes$COD_COM_RBD)
 

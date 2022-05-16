@@ -1,6 +1,6 @@
 
 #saveRDS(resultados_agencia_8esc, file = "~/R/projects/slepca/slepca/data/8estab_2.Rdata")
-#saveRDS(establecimientos, file = "~/R/projects/slepca/data/establecimientos.Rdata")
+saveRDS(establecimientos, file = "~/R/projects/slepca/data/establecimientos.Rdata")
 #saveRDS(X8escuelas_resultados_trabajo, file = "~/R/projects/slepca/slepca/data/8estab_promedios.Rdata")·
 #saveRDS(matricula16_20, file = "~/R/projects/slepca/data/matricula16_20.Rdata")
 #saveRDS(Resumen_Rendimiento_17_19, file = "~/R/projects/slepca/slepca/data/rendimiento17_19.Rdata")

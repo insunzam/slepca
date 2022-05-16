@@ -234,3 +234,8 @@ ggplot(de_n, aes(x = NIVEL, y = RESCORR, fill = NIVEL)) +
   xlab("Nivel") + ylab("Promedio") +
   ggtitle("Respuestas Correctas por Nivel  DIA Matemáticas")
 write_csv(de, file = "~/R/projects/slepca/resultados/dia_eje_nivel_mat.csv")
+
+de_rbd <- inner_join(x=dia_ejes, y=estab, by= "RBD")
+de_rbd <- de_rbd %>% filter(SECTOR == "Matematicas") %>%
+  group_by(RBD) %>% 
+  summarize(RESCORR = round(mean(P_RESCORR),1))

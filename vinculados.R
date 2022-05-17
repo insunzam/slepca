@@ -4,8 +4,8 @@ library(tidyverse)
 library(reshape2)
 
 #vinculados
-saveRDS(vinculados, file = "~/Documents/R/proyectos/slepca/data/vinculados.rda")
-vinc <- readRDS("~/R/projects/slepca/data/vinculados.rda")
+#saveRDS(vinculados, file = "~/Documents/R/proyectos/slepca/data/vinculados.rda")
+#vinc <- readRDS("~/R/projects/slepca/data/vinculados.rda")
 esta <- readRDS("~/R/projects/slepca/data/establecimientos.Rdata")
 estab <- esta %>% select("RBD", "COMUNA", "AREA", "MATRICULA", "ASIST"
                                      , "PO", "MAPUCHE", "F", "M")

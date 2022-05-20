@@ -151,7 +151,8 @@ ggplot(df_ppo_comuna, aes(fill=variable, y=value, x=COMUNA)) +
 
 ggplot(df_ppo_comuna_perc, aes(fill=variable, y=value, x=COMUNA)) + 
   geom_bar(position="stack", stat="identity") +
-  geom_text(aes(label=value), vjust=1.6, color="white", 
+  scale_y_continuous(labels=percent) +
+  geom_text(aes(label=scales::percent(value)), vjust=1.6, color="white", 
             position = position_stack(0.9), size=3.5) +
   scale_fill_hue(l=40) +
   theme_minimal() +

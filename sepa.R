@@ -67,8 +67,9 @@ sepini_nivel_ejes <- sepini_nivel_ejes %>%
   summarize(VALOR = round(mean(VALOR),2))
 
   ggplot(sepini_nivel_ejes, aes(x = EJE , y = VALOR, fill = NIVEL)) +
-  geom_col(position = "dodge") +
-  geom_text(aes(label=VALOR), position = position_dodge(0.9), vjust = 2.5) +
+  geom_col(position = "dodge") + 
+  scale_y_continuous(labels=percent) +
+  geom_text(aes(label=scales::percent(VALOR)), position = position_dodge(0.9), vjust = 2.5) +
   ggtitle("Resultados Promedio por Eje y Nivel - SEPA Inicial")
 
 write_csv(sepini_nivel, file = "~/R/projects/slepca/resultados/sepini_nivel.csv")
@@ -83,7 +84,7 @@ write_csv(sepini_nivel_ejes, file = "~/R/projects/slepca/resultados/sepini_nivel
     summarize(PUNTAJE = round(mean(PUNTAJE),1))
   
   ggplot(sepfin_nivel, aes(x = SECTOR, y = PUNTAJE, fill = NIVEL)) +
-    geom_col(position = "dodge") +
+    geom_col(position = "dodge")  +
     geom_text(aes(label=PUNTAJE), position = position_dodge(0.9), vjust = 2.5) +
     ggtitle("Resultados Promedio por Sector y Nivel - SEPA Final")
   
@@ -95,7 +96,8 @@ write_csv(sepini_nivel_ejes, file = "~/R/projects/slepca/resultados/sepini_nivel
   #  mutate(EJE=fct_reorder(EJE,SECTOR)) %>%
   ggplot(sepfin_nivel_ejes, aes(x = EJE , y = VALOR, fill = NIVEL)) +
     geom_col(position = "dodge") +
-    geom_text(aes(label=VALOR), position = position_dodge(0.9), vjust = 2.5) +
+    scale_y_continuous(labels=percent) +
+    geom_text(aes(label=scales::percent(VALOR)), position = position_dodge(0.9), vjust = 2.5) +
     ggtitle("Resultados Promedio por Eje y Nivel - SEPA Final")
 
 write_csv(sepfin_nivel, file = "~/R/projects/slepca/resultados/sepfin_nivel.csv")

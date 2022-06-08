@@ -2,7 +2,7 @@
 #saveRDS(resultados_agencia_8esc, file = "~/R/projects/slepca/slepca/data/8estab_2.Rdata")
 #saveRDS(establecimientos, file = "~/R/projects/slepca/data/establecimientos.Rdata")
 #saveRDS(X8escuelas_resultados_trabajo, file = "~/R/projects/slepca/slepca/data/8estab_promedios.Rdata")·
-#saveRDS(matricula16_20, file = "~/R/projects/slepca/data/matricula16_20.Rdata")
+#saveRDS(matricula16_22, file = "~/R/projects/slepca/data/matricula16_22.Rdata")
 #saveRDS(Resumen_Rendimiento_17_19, file = "~/R/projects/slepca/slepca/data/rendimiento17_19.Rdata")
 #saveRDS(simce4b2016_rbd, file = "~/R/projects/slepca/slepca/data/simce4to2016.Rdata", compress = FALSE)
 #saveRDS(simce4b2017_rbd, file = "~/R/projects/slepca/slepca/data/simce4to2017.Rdata", compress = FALSE)
@@ -77,4 +77,11 @@ idps4b2018_rbd_f <- idps_4b2018 %>%
 #saveRDS(idps4b2019_rbd, file = "~/R/projects/slepca/slepca/data/simce4to2019.rda", compress = FALSE)
 
 #idps19_rbd_f <- idps19_rbd %>% filter(rbd %in% rbds)
+
+#mat2021 <- Mat_unica_2021 %>% filter(COD_REG_RBD == 9 & COD_DEPE == 6)
+#mat2021 <- readRDS("~/R/projects/slepca/data/mat2021.Rdata")
+#mat2021 <- mat2021 %>% select("AGNO", "RBD", "DGV_RBD", "NOM_RBD", "COD_COM_RBD", "NOM_COM_RBD", "RURAL_RBD", "ESTADO_ESTAB", "COD_ENSE", "COD_ENSE2", "COD_ENSE3", "COD_GRADO", "COD_GRADO2", "LET_CUR", "COD_JOR", "COD_TIP_CUR", "COD_DES_CUR", "MRUN", "GEN_ALU", "FEC_NAC_ALU", "EDAD_ALU", "COD_COM_ALU", "COD_SEC", "COD_ESPE", "COD_RAMA", "COD_MEN", "ENS")
+#saveRDS(mat2021, file = "~/R/projects/slepca/data/mat2021.Rdata", compress = FALSE)
+
+saveRDS(priorit_2021, file = "~/R/projects/slepca/data/priorit_2021.Rdata", compress = FALSE)
 

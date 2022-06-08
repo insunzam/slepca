@@ -51,7 +51,9 @@ df <- inner_join(x=teval, y=teval_t, by= "RBD")
 evaldoce <- readRDS("~/R/projects/slepca/data/eval_docente.Rdata")
 mezcla <- inner_join(x=df, y=esta, by= "RBD")
 mezcla$RBD <- as.character(mezcla$RBD)
-write_csv(mezcla, file = "~/R/projects/slepca/resultados/mezcla.csv")
+mezcla <- mezcla %>% 
+  mutate(indice_gen <- round((F/MATRICULA)/(M/MATRICULA), digits = 3))
+#write_csv(mezcla, file = "~/R/projects/slepca/resultados/mezcla.csv")
 
 #Relación entre matricula y docentes con categoria
 md <- mezcla %>% filter(MATRICULA > 0 & tot_ab > 0) 
@@ -113,7 +115,7 @@ rmdt2
 dia_ejes <- readRDS("~/R/projects/slepca/data/dia_ejes_res_2021.Rdata")
 dia_ejes$RBD <- as.character(dia_ejes$RBD)
 de_rbd <- inner_join(x=dia_ejes, y=esta, by= "RBD")
-write_csv(de_rbd, file = "~/R/projects/slepca/resultados/dia_eje_rbd.csv")
+#write_csv(de_rbd, file = "~/R/projects/slepca/resultados/dia_eje_rbd.csv")
 
 #Lenguaje
 de_rbd_leng <- de_rbd %>% filter(SECTOR == "Lenguaje") %>%
@@ -123,7 +125,7 @@ de_rbd_leng <- de_rbd %>% filter(SECTOR == "Lenguaje") %>%
 write_csv(de_rbd_leng, file = "~/R/projects/slepca/resultados/dia_eje_leng_rbd.csv")
 
 rc_leng <- inner_join(x=de_rbd_leng, y=mezcla, by= "RBD")
-write_csv(rc_leng, file = "~/R/projects/slepca/resultados/datos_lenguaje.csv")
+#write_csv(rc_leng, file = "~/R/projects/slepca/resultados/datos_lenguaje.csv")
 
 rdl <- rc_leng %>% filter(tot_ab > 0)  
 rrdl <- rdl %>% ggplot(aes(tot_ab, RESCORR, label = RBD)) +
@@ -184,7 +186,7 @@ rrdlt_2
 de_rbd_mat <- de_rbd %>% filter(SECTOR == "Matematicas") %>%
   group_by(RBD) %>% 
   summarize(RESCORR = round(mean(P_RESCORR),1))
-write_csv(de_rbd_mat, file = "~/R/projects/slepca/resultados/dia_eje_mat_rbd.csv")
+#write_csv(de_rbd_mat, file = "~/R/projects/slepca/resultados/dia_eje_mat_rbd.csv")
 
 rc_mat <- inner_join(x=de_rbd_mat, y=mezcla, by= "RBD")
 

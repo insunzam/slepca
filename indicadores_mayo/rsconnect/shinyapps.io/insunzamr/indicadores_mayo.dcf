@@ -1,0 +1,13 @@
+name: indicadores_mayo
+title: indicadores_mayo
+username:
+account: insunzamr
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6455133
+bundleId: 5990283
+url: https://insunzamr.shinyapps.io/indicadores_mayo/
+when: 1654715369.60557
+lastSyncTime: 1654715369.60558
+asMultiple: FALSE
+asStatic: FALSE
